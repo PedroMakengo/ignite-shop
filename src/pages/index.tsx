@@ -7,6 +7,7 @@ import { HomeContainer, Product } from '../styles/pages/home'
 import { useKeenSlider } from 'keen-slider/react'
 
 import 'keen-slider/keen-slider.min.css'
+import { formatMoney } from '@/utils/formatter'
 
 interface HomeProps {
   products: {
@@ -31,7 +32,7 @@ export default function Home({ products }: HomeProps) {
           <Image src={product.imageUrl} alt="" width={520} height={480} />
           <footer>
             <strong>{product.name}</strong>
-            <span>{product.price}</span>
+            <span>{formatMoney(product.price / 100)}</span>
           </footer>
         </Product>
       ))}
@@ -51,16 +52,16 @@ export const getStaticProps: GetStaticProps = async () => {
       id: product.id,
       name: product.name,
       imageUrl: product.images[0],
-      price: new Intl.NumberFormat('pt-BR', {
-        style: 'currency',
-        currency: 'BRL',
-      }).format(price.unit_amount / 100),
+      price: price.unit_amount,
+      defaultPriceId: price.id,
     }
   })
+  const hoursInSecond = 60 * 60
+  const revalidateTimeInSeconds = hoursInSecond * 2
   return {
     props: {
       products,
     },
-    revalidate: 60 * 60 * 2,
+    revalidate: revalidateTimeInSeconds,
   }
 }
