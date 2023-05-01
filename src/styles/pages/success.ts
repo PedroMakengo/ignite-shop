@@ -12,12 +12,27 @@ export const SuccessContainer = styled('main', {
     fontSize: '$2xl',
     color: '$gray100',
   },
+
   p: {
     fontSize: '$xl',
     color: '$gray300',
     maxWidth: 560,
     textAlign: 'center',
     marginTop: '2rem',
+    lineHeight: 1.4,
+  },
+
+  a: {
+    display: 'block',
+    marginTop: '5rem',
+    color: '$green500',
+    fontSize: '$lg',
+    textDecoration: 'none',
+    fontWeight: 'bold',
+
+    '&:hover': {
+      color: '$green300',
+    },
   },
 })
 
